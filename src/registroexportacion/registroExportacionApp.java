@@ -71,7 +71,7 @@ public class registroExportacionApp {
         while (id == null) {
             System.out.print("Inserte ID del Cliente con el formato 1-1111-1111: ");
             try {
-                id = InputValidator.validateClientId(entradaUsuario.nextLine());
+                id = InputValidador.validateClientId(entradaUsuario.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
             }
@@ -81,7 +81,7 @@ public class registroExportacionApp {
         while (nombre == null) {
             System.out.print("Nombre completo: ");
             try {
-                nombre = InputValidator.validateName(entradaUsuario.nextLine());
+                nombre = InputValidador.validateName(entradaUsuario.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
             }
@@ -95,7 +95,7 @@ public class registroExportacionApp {
             System.out.println("2. ECS - Exportación Carga Suelta");
             System.out.print("Opción: ");
             try {
-                tipoExportacion = InputValidator.validateExportTypeOption(entradaUsuario.nextLine());
+                tipoExportacion = InputValidador.validateExportTypeOption(entradaUsuario.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
             }
@@ -105,7 +105,7 @@ public class registroExportacionApp {
         while (zona == null) {
             System.out.print("Zona de envío (país de envío): ");
             try {
-                zona = InputValidator.validateZone(entradaUsuario.nextLine());
+                zona = InputValidador.validateZone(entradaUsuario.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
             }
@@ -118,7 +118,7 @@ public class registroExportacionApp {
             System.println("2. Barco");
             System.out.print("Opción: ");
             try {
-                servicio = InputValidator.validateServiceTypeOption(entradaUsuario.nextLine());
+                servicio = InputValidador.validateServiceTypeOption(entradaUsuario.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
             }
@@ -127,7 +127,7 @@ public class registroExportacionApp {
         while (kg == 0) {
             System.out.print("Kilogramos a embalar: ");
             try {
-                kg = InputValidator.validateKilograms(entradaUsuario.nextLine());
+                kg = InputValidador.validateKilograms(entradaUsuario.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
             }
