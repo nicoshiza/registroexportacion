@@ -1,3 +1,10 @@
+
+/**
+ *
+ * @author nicol
+ */
+package registroexportacion;
+
 import java.util.regex.Pattern;
 
 public class InputValidator {
