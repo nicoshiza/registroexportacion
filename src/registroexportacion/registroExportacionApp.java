@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class registroExportacionApp {
 
-    private static final ArrayList<exportacion> exportaciones = new ArrayList<>(); // no se va a poder modificar en otra parte del código
+    private static final ArrayList<Exportacion> exportaciones = new ArrayList<>(); // no se va a poder modificar en otra parte del código
     private static final Scanner entradaUsuario = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -68,81 +68,70 @@ public class registroExportacionApp {
         double kg = 0;
         
         // Validación para el ID con el formato exacto y que no permita letras
-        while (true){
+        while (id == null) {
             System.out.print("Inserte ID del Cliente con el formato 1-1111-1111: ");
-            id = entradaUsuario.nextLine();
-            if (id.matches("^[1-9]-\\d{4}-\\d{4}$")) break;
-            System.out.println("Formato de ID inválido. Por favor ingrese el ID con el formato 1-1111-1111 y sin letras.");
-        }    
+            try {
+                id = InputValidator.validateClientId(entradaUsuario.nextLine());
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
+            }
+        }   
             
         // Validación de nombre
-        while (true) {
-        System.out.print("Nombre completo: ");
-        nombre = entradaUsuario.nextLine();
-        if (nombre.length() >= 7) break;
-        System.out.println("El nombre debe tener al menos 7 caracteres.");
+        while (nombre == null) {
+            System.out.print("Nombre completo: ");
+            try {
+                nombre = InputValidator.validateName(entradaUsuario.nextLine());
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
+            }
         }
       
         // Tipo de exportación
         // se opta por mostrar un menú con las dos opciones así el usuario solo puede ingresar un tipo de exportación válido
-         while (true) {     
-        System.out.println("Seleccione el tipo de exportación: ");
-        System.out.println("1. ECP - Exportación Carga Pesada");
-        System.out.println("2. ECS - Exportación Carga Suelta");
-        System.out.print("Opción: ");
-        String opcionExportacion = entradaUsuario.nextLine();
-        // variable temporal que se utiliza solo para saber qué opción eligió el usuario y convertirla al valor real
-        if (opcionExportacion.equals("1")) {
-           tipoExportacion = "ECP";
-           break;
-        } else if (opcionExportacion.equals("2")) {
-           tipoExportacion = "ECS";
-           break;
-        } else {
-           System.out.println("La opción de tipo de exportación seleccionada no es válida.");
+        while (tipoExportacion == null) {
+            System.out.println("Seleccione el tipo de exportación: ");
+            System.out.println("1. ECP - Exportación Carga Pesada");
+            System.out.println("2. ECS - Exportación Carga Suelta");
+            System.out.print("Opción: ");
+            try {
+                tipoExportacion = InputValidator.validateExportTypeOption(entradaUsuario.nextLine());
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
+            }
         }
-    }
          
          // Zona de envío
-         while (true){
-         System.out.print("Zona de envío (país de envío): ");
-         zona = entradaUsuario.nextLine();
-         if (!zona.isBlank())break;
-         System.out.println("Debe ingresar una zona de envío");
+        while (zona == null) {
+            System.out.print("Zona de envío (país de envío): ");
+            try {
+                zona = InputValidator.validateZone(entradaUsuario.nextLine());
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         // Tipo de servicio, al igual que el tipo de exportación se crea un menú para que el usuario seleccione únicamente los tipos disponibles de servicio
-        while (true) {
+        while (servicio == null) {
             System.out.println("Seleccione el tipo de servicio:");
             System.out.println("1. Avión");
-            System.out.println("2. Barco");
+            System.println("2. Barco");
             System.out.print("Opción: ");
-            String opcionServicio = entradaUsuario.nextLine();
-            // Variable temporal para saber qué opción eligió el usuario y convertirla al valor real
-            if (opcionServicio.equals("1")) {
-                 servicio = "Avión";
-                 break;
-            } else if (opcionServicio.equals("2")) {
-             servicio = "Barco";
-             break;
-            } else {
-                System.out.println("La opción de tipo de servicio seleccionada no es válida.");
+            try {
+                servicio = InputValidator.validateServiceTypeOption(entradaUsuario.nextLine());
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        while (kg == 0) {
+            System.out.print("Kilogramos a embalar: ");
+            try {
+                kg = InputValidator.validateKilograms(entradaUsuario.nextLine());
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
             }
         }    
-
-    // Validación de kilogramos 
-    while (true) {
-        try {            
-            System.out.print("Kilogramos a embalar: ");
-            // variable local que captura el dato ingresado por el usuario 
-             kg = Double.parseDouble(entradaUsuario.nextLine());
-            // convierte el texto a un número decimal 
-            if (kg > 0) break;
-            System.out.println("El peso ingresado debe ser mayor que cero.");
-            } catch (NumberFormatException e) {
-            System.out.println("Por favor, ingrese un número válido.");
-            }    
-    }       
         
     // Crear y guardar la exportación 
      exportacion exp = new exportacion(id, nombre, tipoExportacion, zona, servicio, kg);
