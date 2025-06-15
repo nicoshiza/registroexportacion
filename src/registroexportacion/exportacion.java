@@ -9,7 +9,7 @@ import java.time.LocalDate; // sirve para representar exclusivamente una fecha e
 import java.time.format.DateTimeFormatter; //permite formatear y analizar objetos de fecha y hora utilizando patrones predefinidos
 
 
-public class exportacion {
+public class Exportacion {
     private String idCliente; // Se utiliza private para proteger los datos y permitir el control de acceso mediante métodos públicos
     private String nombreCompleto;
     private String tipoExportacion;
