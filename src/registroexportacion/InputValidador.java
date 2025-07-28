@@ -5,6 +5,7 @@
 package registroexportacion;
 
 import java.util.regex.Pattern;//Importa la clase Pattern para trabajar con expresiones regulares
+import java.util.Scanner;//
 
 public class InputValidador {
 
@@ -76,6 +77,40 @@ public class InputValidador {
         throw new ValidacionExcepcion("Respuesta inválida. Por favor ingrese S para sí o N para no.");
     }
     return input.toUpperCase();
+    }
+    
+    //Valida el tipo de carga para Carga Pesada
+    public static String validateTipoCarga(Scanner scanner){
+        String tipo;
+        while (true){
+            System.out.println("Ingrese el tipo carga (Contenedor Refrigerado / Contenedor no refrigerado / Carga embalada):");
+            tipo = scanner.nextLine().trim();
+            if (tipo.equalsIgnoreCase("Contenedor Refrigerado") ||
+                tipo.equalsIgnoreCase("Contenedor no refrigerado") ||
+                tipo.equalsIgnoreCase("Carga embalada")){
+                return tipo;
+            } else {
+                System.out.println("Tipo de carga invalida.Ingrese de nuevo.");
+            }
+        }
+    }
+    
+    //Valida los pies cubicos de la carga 
+    public static int validatePiesCarga(Scanner scanner){
+        int pies = 0;
+        while(true){
+            try{
+                System.out.println("Ingrese los pies de la carga: ");
+                pies = Integer.parseInt(scanner.nextLine());
+                if (pies > 0){
+                    return pies;
+                }else {
+                    System.out.println("Debe ser mayor que cero");
+                }
+            } catch (NumberFormatException e){
+                System.out.println ("Entrada no valida. Por favor ingresa de nuevo el dato.");
+            }
+        }
     }
 }
 
