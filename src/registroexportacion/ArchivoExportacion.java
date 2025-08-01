@@ -37,6 +37,10 @@ public class ArchivoExportacion {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
             String linea;
+            
+            //Salta el encabezado
+            reader.readLine();
+            
             while ((linea = reader.readLine()) != null) {
                 String[] partes = linea.split(";");
                 String tipo = partes[0].trim();

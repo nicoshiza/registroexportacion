@@ -7,6 +7,7 @@ package registroexportacion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 public class RegistroExportacionApp {
 
@@ -14,9 +15,12 @@ public class RegistroExportacionApp {
     private static final ArchivoExportacion archivoExportacion = new ArchivoExportacion("Exportaciones.txt");
 
     public static void main(String[] args) {
-        exportaciones.addAll(archivoExportacion.cargar());
-        
-        archivoExportacion.guardar(exportaciones);
+        SwingUtilities.invokeLater(() -> {
+            exportaciones.addAll(archivoExportacion.cargar());
+            RegistroJFrame ventana = new RegistroJFrame(exportaciones);
+            ventana.setVisible(true);
+        });
+       
     }
 
     public static void agregarExportacion(Exportacion exp) {
@@ -31,7 +35,6 @@ public class RegistroExportacionApp {
         List<Exportacion> lista = buscarPorCliente(idCliente);
         if (index >= 0 && index < lista.size()) {
             Exportacion original = lista.get(index);
-            nueva.setFechaRegistro(original.getFechaRegistro()); // No cambiar fecha original
             nueva.setFechaModificacion(LocalDate.now()); // Fecha modificación actual
             nueva.setCostoAprobado(nueva.calcularCosto());
             exportaciones.set(exportaciones.indexOf(original), nueva);
@@ -66,5 +69,6 @@ public class RegistroExportacionApp {
         }
         return resultado;
     }
+    
 }
 /* Deitel, H & P. (2021) Java Cómo Programar. Pearson Educación. ISBN: 978-607-32-5693-3 */
