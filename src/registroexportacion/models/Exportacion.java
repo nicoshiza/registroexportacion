@@ -1,20 +1,19 @@
-
 /**
- *
  * @author nicol
  */
-package registroexportacion;
- 
+package registroexportacion.models;
+
+import registroexportacion.models.enums.TipoExportacion;
+
 import java.io.Serializable; // sirve para indicar que una clase puede ser serializada
 import java.time.LocalDate; // sirve para representar exclusivamente una fecha en terminos de año, mes y dia
 import java.time.format.DateTimeFormatter; //permite formatear y analizar objetos de fecha y hora utilizando patrones predefinidos
 
-
-//Abstract class facilita el poliformismo permitiendo que los objetos de diferentes clases derivadas se traten como objectos de la clase base 
+//Abstract class facilita el poliformismo permitiendo que los objetos de diferentes clases derivadas se traten como objectos de la clase base
 public abstract class Exportacion implements Serializable {
     protected String idCliente; // Se utiliza private para proteger los datos y permitir el control de acceso mediante métodos públicos
     protected String nombreCompleto;
-    protected String tipoExportacion;
+    protected TipoExportacion tipoExportacion;
     protected LocalDate fechaExportacion;
     protected String zonaEnvio;
     protected String tipoServicio;
@@ -22,15 +21,16 @@ public abstract class Exportacion implements Serializable {
     protected double costoAprobado;
     protected LocalDate fechaModificacion;
     protected String fechaRegistro;
-    
-    
-    public Exportacion(){
+
+
+    public Exportacion() {
         this.fechaModificacion = LocalDate.now();
         this.fechaExportacion = LocalDate.now(); // El sistema tomará automáticamente la fecha del día actual cuando se crea el objeto
     }
 
     // Constructor: se usa para crear objetos de una clase
-    public Exportacion(String idCliente, String nombreCompleto, String tipoExportacion, String zonaEnvio,String tipoServicio, double kilogramos, double costoAprobado) {
+    public Exportacion(String idCliente, String nombreCompleto, TipoExportacion tipoExportacion, String zonaEnvio,
+                       String tipoServicio, double kilogramos, double costoAprobado) {
         this.idCliente = idCliente; // Sirve para asignar al atributo el valor que recibe el constructor
         this.nombreCompleto = nombreCompleto;
         this.tipoExportacion = tipoExportacion;
@@ -42,10 +42,22 @@ public abstract class Exportacion implements Serializable {
         this.fechaModificacion = LocalDate.now();
         this.fechaRegistro = fechaRegistro;
     }
-    
+
+    // Metodo abstracto para calcular el costo de la exportación
+    public abstract double calcularCosto();
+
+    // Metodo abstracto para que cada clase hija genere la línea para archivo
+    public abstract String getLineaArchivo();
+
+    @Override
+    public String toString() {
+        return String.format("%s | ID: %s | Zona: %s | Servicio: %s | Kg: %.2f | Costo: %.2f | Fecha Reg: %s | Fecha Mod: %s",
+                nombreCompleto, idCliente, zonaEnvio, tipoServicio, kilogramos, costoAprobado,
+                fechaExportacion.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), fechaModificacion.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+    }
+
     // Getters y setters
-    
-     public String getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
@@ -61,11 +73,11 @@ public abstract class Exportacion implements Serializable {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public String getTipoExportacion() {
+    public TipoExportacion getTipoExportacion() {
         return tipoExportacion;
     }
 
-    public void setTipoExportacion(String tipoExportacion) {
+    public void setTipoExportacion(TipoExportacion tipoExportacion) {
         this.tipoExportacion = tipoExportacion;
     }
 
@@ -112,27 +124,14 @@ public abstract class Exportacion implements Serializable {
     public void setFechaModificacion(LocalDate fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
-    
+
     public String getFechaRegistro() {
         return fechaRegistro;
     }
-    
+
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaExportacion = fechaRegistro;
     } // se crea este set porque al leer desde el archivo los datos ya guardados se busca restaurar el objeto en lugar de dejar que se cree con la fecha actual del sistema
-    
-   // Método abstracto para calcular el costo de la exportación 
-     public abstract double calcularCosto();
-
-    // Método abstracto para que cada clase hija genere la línea para archivo
-    public abstract String getLineaArchivo();
-    
-     @Override
-    public String toString() {
-        return String.format("%s | ID: %s | Zona: %s | Servicio: %s | Kg: %.2f | Costo: %.2f | Fecha Reg: %s | Fecha Mod: %s",
-               nombreCompleto, idCliente, zonaEnvio, tipoServicio, kilogramos, costoAprobado,
-                fechaExportacion.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), fechaModificacion.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))) ;
-    }
 }
 
 /* Maldonado, R. (enero,2025) ¿Cómo crear y manipular fechas con java.time.LocalDate en Java?. Keepcoding. Tomado de:https://keepcoding.io/blog/como-usar-java-time-localdate-en-java/

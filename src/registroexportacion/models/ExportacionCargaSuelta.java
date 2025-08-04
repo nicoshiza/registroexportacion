@@ -2,7 +2,10 @@
  *
  * @author nicol
  */
-package registroexportacion;
+package registroexportacion.models;
+
+import registroexportacion.ValidacionExcepcion;
+import registroexportacion.models.enums.TipoExportacion;
 
 public class ExportacionCargaSuelta extends Exportacion {
     private int piesCarga;
@@ -13,7 +16,7 @@ public class ExportacionCargaSuelta extends Exportacion {
 
     public ExportacionCargaSuelta(String nombreCompleto, String idCliente, String zonaEnvio, String tipoServicio,
                                   double kilogramos, double costoAprobado, int piesCarga) {
-        super(idCliente, nombreCompleto, "CargaSuelta", zonaEnvio, tipoServicio, kilogramos, costoAprobado);
+        super(idCliente, nombreCompleto, TipoExportacion.ECS, zonaEnvio, tipoServicio, kilogramos, costoAprobado);
         this.piesCarga = piesCarga;
     }
 
@@ -41,7 +44,7 @@ public class ExportacionCargaSuelta extends Exportacion {
                 adicional = 50;
             }
         } else {
-            throw new  ValidacionExcepcion("Tipo de servicio inválido");
+            throw new ValidacionExcepcion("Tipo de servicio inválido");
         }
 
         return (kilogramos * costoBase) + adicional;

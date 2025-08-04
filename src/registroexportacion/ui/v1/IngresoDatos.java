@@ -2,13 +2,9 @@
  *
  * @author nicol
  */
-package registroexportacion;
+package registroexportacion.ui.v1;
 
-import javax.swing.*;
-import registroexportacion.ValidacionExcepcion;
-import registroexportacion.Exportacion;
-import registroexportacion.ExportacionCargaPesada;
-import registroexportacion.ExportacionCargaSuelta;
+import registroexportacion.models.Exportacion;
 
 public class IngresoDatos extends javax.swing.JFrame {
 

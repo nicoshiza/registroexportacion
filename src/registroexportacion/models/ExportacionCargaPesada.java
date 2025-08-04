@@ -2,40 +2,45 @@
  *
  * @author nicol
  */
-package registroexportacion;
+package registroexportacion.models;
+
+import registroexportacion.ValidacionExcepcion;
+import registroexportacion.models.enums.TipoCarga;
+import registroexportacion.models.enums.TipoExportacion;
 
 public class ExportacionCargaPesada extends Exportacion {
-    private String tipoCarga; // Contenedor Refrigerado, No Refrigerado, Embalada
+    private TipoCarga tipoCarga; // Contenedor Refrigerado, No Refrigerado, Embalada
 
     public ExportacionCargaPesada() {
         super();
     }
 
     public ExportacionCargaPesada(String nombreCompleto, String idCliente, String zonaEnvio, String tipoServicio,
-                                 double kilogramos, double costoAprobado, String tipoCarga) {
-        super(idCliente, nombreCompleto, "CargaPesada", zonaEnvio, tipoServicio, kilogramos, costoAprobado);
+                                 double kilogramos, double costoAprobado, TipoCarga tipoCarga) {
+        super(idCliente, nombreCompleto, TipoExportacion.ECP, zonaEnvio, tipoServicio, kilogramos, costoAprobado);
         this.tipoCarga = tipoCarga;
     }
 
-    public String getTipoCarga() {
+    public TipoCarga getTipoCarga() {
         return tipoCarga;
     }
 
-    public void setTipoCarga(String tipoCarga) {
+    public void setTipoCarga(TipoCarga tipoCarga) {
         this.tipoCarga = tipoCarga;
     }
 
     @Override
     public double calcularCosto() {
-        switch (tipoCarga.toLowerCase()) {
-            case "contenedor refrigerado":
+        switch (tipoCarga) {
+            case TipoCarga.CR:
                 return kilogramos * 950;
-            case "contenedor no refrigerado":
+            case TipoCarga.CNR:
                 return kilogramos * 550;
-            case "carga embalada":
+            case TipoCarga.CE:
                 // Solo se permite con barco, de lo contrario error
                 if (!tipoServicio.equalsIgnoreCase("Barco")) {
-                    throw new ValidacionExcepcion("La carga embalada solo puede enviarse por barco.");
+                    // TODO: chquear si esto aplica aqui
+//                    throw new ValidacionExcepcion("La carga embalada solo puede enviarse por barco.");
                 }
                 return kilogramos * 450;
             default:
@@ -54,7 +59,7 @@ public class ExportacionCargaPesada extends Exportacion {
                 fechaExportacion.toString(),
                 fechaModificacion.toString(),
                 String.valueOf(kilogramos),
-                tipoCarga
+                tipoCarga.getDescripcion()
         );
     }
 
