@@ -8,7 +8,7 @@ import registroexportacion.ValidacionExcepcion;
 import registroexportacion.models.enums.TipoExportacion;
 
 public class ExportacionCargaSuelta extends Exportacion {
-    private int piesCarga;
+    private Integer piesCarga;
 
     public ExportacionCargaSuelta() {
         super();
@@ -20,11 +20,11 @@ public class ExportacionCargaSuelta extends Exportacion {
         this.piesCarga = piesCarga;
     }
 
-    public int getPiesCarga() {
+    public Integer getPiesCarga() {
         return piesCarga;
     }
 
-    public void setPiesCarga(int piesCarga) {
+    public void setPiesCarga(Integer piesCarga) {
         this.piesCarga = piesCarga;
     }
 

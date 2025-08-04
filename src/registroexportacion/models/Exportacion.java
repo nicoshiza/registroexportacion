@@ -21,6 +21,7 @@ public abstract class Exportacion implements Serializable {
     protected double costoAprobado;
     protected LocalDate fechaModificacion;
     protected String fechaRegistro;
+    private boolean isSelected = false;
 
 
     public Exportacion() {
@@ -132,6 +133,9 @@ public abstract class Exportacion implements Serializable {
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaExportacion = fechaRegistro;
     } // se crea este set porque al leer desde el archivo los datos ya guardados se busca restaurar el objeto en lugar de dejar que se cree con la fecha actual del sistema
+
+    public boolean isSelected() { return isSelected; }
+    public void setSelected(boolean selected) { isSelected = selected; }
 }
 
 /* Maldonado, R. (enero,2025) ¿Cómo crear y manipular fechas con java.time.LocalDate en Java?. Keepcoding. Tomado de:https://keepcoding.io/blog/como-usar-java-time-localdate-en-java/

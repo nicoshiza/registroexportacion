@@ -6,7 +6,7 @@ package registroexportacion;
 
 import registroexportacion.dao.ExportacionDao;
 import registroexportacion.models.Exportacion;
-import registroexportacion.ui.v1.RegistroJFrame;
+import registroexportacion.ui.v2.windows.exportacion.RegistroExportationWindow;
 import registroexportacion.utils.ExportacionArchivoDao;
 
 import java.time.LocalDate;
@@ -22,10 +22,10 @@ public class RegistroExportacionApp {
     public static void main(String[] args) {
         exportaciones.addAll(EXPORTACION_ARCHIVO_DAO.listar());
         SwingUtilities.invokeLater(() -> {
-            RegistroJFrame ventana = new RegistroJFrame(exportaciones);
-            ventana.setVisible(true);
-//            var exportationWindow = new RegistroExportationWindow(EXPORTACION_ARCHIVO_DAO);
-//            exportationWindow.setVisible(true);
+//            RegistroJFrame ventana = new RegistroJFrame(exportaciones);
+//            ventana.setVisible(true);
+            var exportationWindow = new RegistroExportationWindow(EXPORTACION_ARCHIVO_DAO);
+            exportationWindow.setVisible(true);
         });
        
     }
