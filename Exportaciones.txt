@@ -1,1 +1,16 @@
-Tipo;Nombre;ID;Zona;Servicio;FechaRegistro;FechaModificacion;Kilogramos;Detalle
+Tipo;Nombre;ID;Zona;Servicio;FechaRegistro;FechaModificacion;Kilogramos;TipoCarga;PiesCarga
+ECP;Carlos Méndez;1-0001-0001;Zona Norte;Avion;2025-07-01;2025-07-15;12.5;CR;
+ECS;Ana Rodríguez;1-0002-0002;Zona Sur;Barco;2025-06-20;2025-07-10;8.2;;18
+ECS;Luis Gómez;1-0003-0003;Zona Este;Avion;2025-07-05;2025-07-18;15.0;;25
+ECP;María Vargas;1-0004-0004;Zona Oeste;Barco;2025-06-30;2025-07-12;10.3;CNR;
+ECS;Jorge Salas;1-0005-0005;Zona Norte;Avion;2025-07-02;2025-07-16;9.7;;20
+ECS;Laura Jiménez;1-0006-0006;Zona Sur;Barco;2025-07-03;2025-07-17;13.4;;10
+ECP;Pedro Castillo;1-0007-0007;Zona Este;Avion;2025-07-06;2025-07-19;11.1;CE;
+ECS;Sofía Herrera;1-0008-0008;Zona Oeste;Barco;2025-07-07;2025-07-20;7.9;;8
+Otro;Daniel Rojas;1-0009-0009;Zona Norte;Avion;2025-07-08;2025-07-21;14.6;;
+ECP;Gabriela Soto;1-0010-0010;Zona Sur;Barco;2025-07-09;2025-07-22;10.0;CE;
+ECS;Ricardo Pineda;1-0011-0011;Zona Este;Avion;2025-07-10;2025-07-23;9.3;;15
+Otro;Natalia Cruz;1-0012-0012;Zona Oeste;Barco;2025-07-11;2025-07-24;12.8;;
+ECP;Andrés Molina;1-0013-0013;Zona Norte;Avion;2025-07-12;2025-07-25;13.0;CR;
+ECS;Valeria Navarro;1-0014-0014;Zona Sur;Barco;2025-07-13;2025-07-26;8.5;;31
+Otro;Tomás León;1-0015-0015;Zona Este;Avion;2025-07-14;2025-07-27;15.2;;

@@ -2,7 +2,10 @@
  *
  * @author nicol
  */
-package registroexportacion;
+package registroexportacion.ui.v1;
+
+import registroexportacion.RegistroExportacionApp;
+import registroexportacion.models.Exportacion;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;

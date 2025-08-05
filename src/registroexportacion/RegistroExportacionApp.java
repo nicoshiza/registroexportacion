@@ -4,6 +4,11 @@
  */
 package registroexportacion;
 
+import registroexportacion.dao.ExportacionDao;
+import registroexportacion.models.Exportacion;
+import registroexportacion.ui.v2.windows.exportacion.RegistroExportationWindow;
+import registroexportacion.utils.ExportacionArchivoDao;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +17,15 @@ import javax.swing.SwingUtilities;
 public class RegistroExportacionApp {
 
     private static final List<Exportacion> exportaciones = new ArrayList<>();
-    private static final ArchivoExportacion archivoExportacion = new ArchivoExportacion("Exportaciones.txt");
+    private static final ExportacionDao EXPORTACION_ARCHIVO_DAO = new ExportacionArchivoDao("Exportaciones.txt");
 
     public static void main(String[] args) {
+        exportaciones.addAll(EXPORTACION_ARCHIVO_DAO.listar());
         SwingUtilities.invokeLater(() -> {
-            exportaciones.addAll(archivoExportacion.cargar());
-            RegistroJFrame ventana = new RegistroJFrame(exportaciones);
-            ventana.setVisible(true);
+//            RegistroJFrame ventana = new RegistroJFrame(exportaciones);
+//            ventana.setVisible(true);
+            var exportationWindow = new RegistroExportationWindow(EXPORTACION_ARCHIVO_DAO);
+            exportationWindow.setVisible(true);
         });
        
     }
@@ -28,7 +35,7 @@ public class RegistroExportacionApp {
         exp.setFechaModificacion(LocalDate.now());
         exp.setCostoAprobado(exp.calcularCosto());
         exportaciones.add(exp);
-        archivoExportacion.guardar(exportaciones);
+        EXPORTACION_ARCHIVO_DAO.guardar(exportaciones);
     }
 
     public static void modificarExportacion(String idCliente, int index, Exportacion nueva) {
@@ -38,7 +45,7 @@ public class RegistroExportacionApp {
             nueva.setFechaModificacion(LocalDate.now()); // Fecha modificación actual
             nueva.setCostoAprobado(nueva.calcularCosto());
             exportaciones.set(exportaciones.indexOf(original), nueva);
-            archivoExportacion.guardar(exportaciones);
+            EXPORTACION_ARCHIVO_DAO.guardar(exportaciones);
         }
     }
 
@@ -46,7 +53,7 @@ public class RegistroExportacionApp {
         List<Exportacion> lista = buscarPorCliente(idCliente);
         if (index >= 0 && index < lista.size()) {
             exportaciones.remove(lista.get(index));
-            archivoExportacion.guardar(exportaciones);
+            EXPORTACION_ARCHIVO_DAO.guardar(exportaciones);
         }
     }
 
